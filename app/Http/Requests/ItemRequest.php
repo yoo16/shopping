@@ -35,13 +35,13 @@ class ItemRequest extends FormRequest
     public function messages()
     {
         return [
-            //'name.required' => Lang::get('messages.name_required'),
-            'name.required' => ':messages.name_required',
-            'code.required' => ':messages.code_required',
-            'price.required' => ':messages.price_required',
-            'price.integer' => ':messages.price_integer',
-            'amount.min' => ':messages.amount_min',
+            'name.required' => Lang::get('messages.name_required'),
+            'code.required' => Lang::get('messages.code_required'),
+            'price.required' => Lang::get('messages.price_required'),
+            'price.integer' => Lang::get('messages.price_invalid'),
+            'price.min' => Lang::get('messages.price_invalid'),
+            'amount.integer' => Lang::get('messages.amount_invalid'),
+            'amount.min' => Lang::get('messages.amount_invalid'),
         ];
     }
-
 }

@@ -16,7 +16,7 @@ class ItemController extends Controller
         $data = ['items' => $items];
         return view('admin.item.index', $data);
     }
-    
+
     public function create()
     {
         return view('admin.item.create');
@@ -51,5 +51,4 @@ class ItemController extends Controller
     {
         return redirect()->route('admin.item.index');
     }
-
 }

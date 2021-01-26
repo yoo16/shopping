@@ -50,6 +50,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        $class = get_class($exception);
+        if ($class == 'Illuminate\Session\TokenMismatchException') {
+            return back()->withInput();
+        }
         return parent::render($request, $exception);
     }
 }

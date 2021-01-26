@@ -25,14 +25,16 @@ $title = '商品追加';
     <div class="form-group row">
       <label for="price" class="col-md-4 col-form-label">{{ __('Price') }}</label>
       <div class="col-md-6">
-        <input id="price" type="text" class="form-control" name="price" value="{{ old('price', @$item->price) }}" required>
+        <input id="price" type="text" class="form-control" name="price" value="{{ old('price', @$item->price) }}"
+          required>
       </div>
     </div>
 
     <div class="form-group row">
       <label for="amount" class="col-md-4 col-form-label">{{ __('Amount') }}</label>
       <div class="col-md-6">
-        <input id="amount" type="text" class="form-control" name="amount" value="{{ old('amount', @$item->amount) }}" required>
+        <input id="amount" type="text" class="form-control" name="amount" value="{{ old('amount', @$item->amount) }}"
+          required>
       </div>
     </div>
 
