@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\User;
 
 class UserSeeder extends Seeder
 {
@@ -11,11 +12,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $user_name = Str::random(10);
-        DB::table('users')->insert([
-            'name' => $user_name,
-            'email' => "{$user_name}@example.com",
-            'password' => Hash::make('password'),
-        ]);
+        User::truncate();
+        factory(User::class, 50)->create();
     }
 }

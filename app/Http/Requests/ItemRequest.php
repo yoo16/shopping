@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Validation\Rule;
 
 class ItemRequest extends FormRequest
 {
@@ -25,10 +26,11 @@ class ItemRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
-            'code' => 'required|string',
-            'price' => 'required|min:0|integer',
-            'amount' => 'min:0|integer',
+            'name' => ['required', 'string'],
+            'code' => ['required', 'string', Rule::unique('items')->ignore($this->id)],
+            // 'code' => "required|string|unique:items,code,{$this->id},id",
+            'price' => ['required', 'min:0', 'integer'],
+            'amount' => ['min:0', 'integer'],
         ];
     }
 
@@ -37,6 +39,7 @@ class ItemRequest extends FormRequest
         return [
             'name.required' => Lang::get('messages.name_required'),
             'code.required' => Lang::get('messages.code_required'),
+            'code.unique' => Lang::get('messages.code_unique'),
             'price.required' => Lang::get('messages.price_required'),
             'price.integer' => Lang::get('messages.price_invalid'),
             'price.min' => Lang::get('messages.price_invalid'),

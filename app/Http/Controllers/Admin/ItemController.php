@@ -8,6 +8,8 @@ use App\Models\Item;
 use App\Http\Requests\ItemRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
+use Illuminate\Support\Facades\Auth;
+
 class ItemController extends Controller
 {
     public function index()
