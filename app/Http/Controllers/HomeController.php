@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $items = Item::get();
+        $items = Item::limit(10)->get();
         $data = ['items' => $items];
         return view('home', $data);
     }

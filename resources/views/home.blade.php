@@ -6,22 +6,20 @@
   <div class="row">
 
     @foreach ($items as $item)
-    <div class="col-md-4">
+    <div class="col-md-4 mb-2">
       <div class="card">
         <div class="card-header bg-white">
           <img src="{{ asset('images/now_printing.jpg') }}" alt="" width="100%">
         </div>
 
         <div class="card-body">
-          <div class="detail">
-            <a href="">{{ $item['name'] }}</a>
-            <p>
-              ¥{{ number_format($item['price']) }}
-            </p>
-            <p class="row justify-content-center">
-              <a href="" class="btn btn-outline-info">カートに入れる</a>
-            </p>
-          </div>
+          <a href="">{{ $item->name }}</a>
+          <p>
+            ¥{{ number_format($item->price) }}
+          </p>
+          <p class="row justify-content-center">
+            <a href="{{ route('cart.add', ['id' => $item->id]) }}" class="btn btn-outline-info">{{ __('Add Cart') }}</a>
+          </p>
         </div>
 
       </div>
