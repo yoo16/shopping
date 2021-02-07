@@ -60,13 +60,30 @@ class UserItem extends Model
     static public function addCart(Request $request, User $user, Item $item)
     {
         $user_item = UserItem::sessionValue($request);
+        $amount = (isset($user_item->amount)) ? $user_item->amount + 1 : 1;
+        UserItem::updateCart($request, $user, $item, $amount);
+    }
+
+    static public function updateCart(Request $request, User $user, Item $item, $amount)
+    {
+        $user_item = UserItem::sessionValue($request);
         if (!$user_item) $user_item = new UserItem();
         $user_item->item_id = $item->id;
         $user_item->user_id = $user->id;
         $user_item->price = $item->price;
-        $user_item->amount++;
+        $user_item->amount = $amount;
 
         UserItem::saveSession($request, $user_item);
+    }
+
+    static public function updatesCart(Request $request, User $user)
+    {
+        if (!$request->all()) return;
+        $request_items = $request->all()['user_items'];
+        foreach ($request_items as $item_id => $amount) {
+            $item = Item::find($item_id);
+            UserItem::updateCart($request, $user, $item, $amount);
+        }
     }
 
     static public function removeCart(Request $request, User $user, Item $item)
@@ -87,4 +104,14 @@ class UserItem extends Model
         $request->session()->forget(self::$session_key);
     }
 
+    static public function calculateTotal(Request $request)
+    {
+        $user_items = UserItem::sessionValues($request);
+        $total_price = 0;
+        if (empty($user_items)) return $total_price;
+        foreach ($user_items as $user_item) {
+            $total_price+= ($user_item->price * $user_item->amount);
+        }
+        return $total_price;
+    }
 }
