@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Facades\Cart;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\UserItem;
@@ -19,24 +20,14 @@ class CartController extends Controller
     }
 
     public function index(Request $request) {
-        $data = [];
-        if ($request->session()->has('user_items')) {
-            $user_items = UserItem::sessionValues($request);
-            $items = Item::whereIn('id', array_keys($user_items))->get();
-            $total_price = UserItem::calculateTotal($request);
-            $data = [
-                'user_items' => $user_items,
-                'items' => $items,
-                'total_price' => $total_price,
-            ];
-        }
+        $data = Cart::orderList($request);
         return view('cart.index', $data);
     }
 
     public function add(Request $request)
     {
         $item = Item::find($request->id);
-        if ($item->id) UserItem::addCart($request, $this->user, $item);
+        if (isset($item->id)) UserItem::addCart($request, $this->user, $item);
         return redirect()->route('cart.index');
     }
 
@@ -57,6 +48,16 @@ class CartController extends Controller
     {
         UserItem::clearCart($request);
         return redirect()->route('cart.index');
+    }
+
+    public function confirm(Request $request) {
+        $data = Cart::orderList($request);
+        return view('cart.confirm', $data);
+    }
+
+    public function order(Request $request) {
+        Cart::order($request);
+        return view('cart.result');
     }
 
 }

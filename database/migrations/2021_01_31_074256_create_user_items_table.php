@@ -18,8 +18,9 @@ class CreateUserItemsTable extends Migration
             $table->timestamps();
             $table->foreignId('user_id');
             $table->foreignId('item_id');
+            $table->integer('price');
             $table->integer('amount');
-            $table->integer('tax');
+            $table->integer('tax')->nullable();
         });
     }
 

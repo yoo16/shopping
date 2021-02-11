@@ -31,4 +31,7 @@ Route::group([
     Route::get('remove/{id}', 'CartController@remove')->name('remove');
     Route::get('clear', 'CartController@clear')->name('clear');
     Route::post('updates', 'CartController@updates')->name('updates');
+    Route::get('confirm', 'CartController@confirm')->name('confirm');
+    Route::post('order', 'CartController@order')->name('order');
+    Route::get('result', 'CartController@result')->name('result');
 });
