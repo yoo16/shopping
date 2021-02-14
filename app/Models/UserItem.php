@@ -78,12 +78,13 @@ class UserItem extends Model
 
     static public function updatesCart(Request $request, User $user)
     {
-        if (!$request->all()) return;
-        $request_items = $request->all()['user_items'];
-        if (!$request_items) return;
-        foreach ($request_items as $item_id => $amount) {
-            $item = Item::find($item_id);
-            UserItem::updateCart($request, $user, $item, $amount);
+        if (empty($posts = $request->all())) return;
+        if (empty($amounts = $posts[self::$session_key])) return;
+        foreach ($amounts as $item_id => $amount) {
+            if ($amount > 0) {
+                $item = Item::find($item_id);
+                UserItem::updateCart($request, $user, $item, $amount);
+            }
         }
     }
 
