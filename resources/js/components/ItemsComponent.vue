@@ -11,21 +11,26 @@ export default {
   data() {
     return {
       items: [],
+      loading: false,
     };
   },
   methods: {
     getItems: function (e) {
+      this.loading = true;
       axios
         .get("/api/item/get")
         .then((res) => {
           this.items = res.data;
+          this.loading = false;
         })
         .catch((res) => console.log(res));
     },
     findItem: function (id) {
+      this.loading = true;
       axios
         .get("/api/item/find/" + id)
         .then((res) => {
+          loading = false;
           this.item = res.data;
         })
         .catch((res) => console.log(res));

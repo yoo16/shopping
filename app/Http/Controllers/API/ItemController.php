@@ -16,7 +16,7 @@ class ItemController extends Controller
 
     public function get()
     {
-        $items = Item::limit(10)->get();
+        $items = Item::limit(10)->orderBy('code')->get();
         return response()->json($items);
     }
 }
