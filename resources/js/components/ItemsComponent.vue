@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div v-for="item in items" :key="item.id" class="col-md-4 mb-2">
-      <item-component :item="item"></item-component>
+      <Item :item="item"></Item>
     </div>
   </div>
 </template>

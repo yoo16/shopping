@@ -28,3 +28,14 @@ Route::group(
         Route::get('get', 'ItemController@get');
     }
 );
+
+Route::group(
+    [
+        'prefix' => 'user',
+        'namespace' => 'API',
+    ],
+    function () {
+        Route::get('find/{id}', 'UserController@find');
+        Route::get('get', 'UserController@get');
+    }
+);
